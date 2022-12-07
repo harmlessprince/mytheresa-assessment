@@ -18,18 +18,13 @@ class DiscountSeeder extends Seeder
         $discounts = [
             [
                 'type' => 'category',
-                'pointer' => 'sandals',
-                'percentage' => 15,
-            ],
-            [
-                'type' => 'category',
                 'pointer' => 'boots',
-                'percentage' => 15,
+                'percentage' => 30,
             ],
             [
                 'type' => 'sku',
                 'pointer' => '000003',
-                'percentage' => 30,
+                'percentage' => 15,
             ]
         ];
         foreach ($discounts as $discount){
