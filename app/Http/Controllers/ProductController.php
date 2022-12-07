@@ -16,7 +16,7 @@ class ProductController extends Controller
 
         $productQuery = Product::query();
         if ($category) $productQuery->where('category', 'LIKE', '%' . $category . '%');
-        if ($priceLessThan) $productQuery->where('price', '<=', $priceLessThan);
+        if ($priceLessThan && is_numeric($priceLessThan)) $productQuery->where('price', '<=', $priceLessThan);
         $products =  $productQuery->simplePaginate($perPage);
         return ProductResource::collection($products);
     }
