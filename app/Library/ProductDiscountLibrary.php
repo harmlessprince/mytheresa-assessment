@@ -2,10 +2,8 @@
 
 namespace App\Library;
 
-use App\Models\Discount;
 use App\Models\Product;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
 
 class ProductDiscountLibrary
 {
@@ -39,7 +37,7 @@ class ProductDiscountLibrary
     }
 
 
-    private function pickMaxDiscount(Product $product): ?float
+    public function pickMaxDiscount(Product $product): ?float
     {
         return $this->discounts->whereIn('pointer', [$product->sku, $product->category])->max('percentage');
     }

@@ -13,9 +13,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $sku
  * @property string $category
  * @property int|float $price
- * @property-read  int $originalPrice
- * @property-read  int $finalPrice
- * @property-read $discountPercentage
+ * @property-read  int $original
+ * @property-read  int $final
+ * @property-read $discount_percentage
  * @property-read $currency
  */
 class Product extends Model
