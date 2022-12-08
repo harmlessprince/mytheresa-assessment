@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ProductResource;
+use App\Library\ProductDiscountLibrary;
+use App\Models\Discount;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class ProductController extends Controller
+class GetProductsController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, ProductDiscountLibrary $productDiscountLibrary)
     {
         $category = $request->category;
         $priceLessThan = $request->priceLessThan;
@@ -18,6 +21,11 @@ class ProductController extends Controller
         if ($category) $productQuery->where('category', 'LIKE', '%' . $category . '%');
         if ($priceLessThan && is_numeric($priceLessThan)) $productQuery->where('price', '<=', $priceLessThan);
         $products =  $productQuery->simplePaginate($perPage);
-        return ProductResource::collection($products);
+        foreach ($products as $product){
+            /** @var  Product $product */
+            $product->price = $productDiscountLibrary->productPricing($product);
+        }
+        return ['data' => $products];
     }
+
 }

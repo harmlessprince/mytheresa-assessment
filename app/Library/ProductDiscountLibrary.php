@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Library;
+
+use App\Models\Discount;
+use App\Models\Product;
+use Illuminate\Support\Facades\Log;
+class ProductDiscountLibrary
+{
+    private \Illuminate\Support\Collection $discounts;
+    public function __construct()
+    {
+        $this->discounts = $this->fetchDiscounts();
+    }
+
+    private function originalPrice(Product $product): float|int
+    {
+        return $product->price;
+    }
+
+    private function finalPrice(Product $product): float|int
+    {
+        $discountPercentage = $this->discountPercentage($product);
+        if ($discountPercentage < 0) return  $this->originalPrice($product);
+        return $this->originalPrice($product) - (($this->discountPercentage($product) / 100) * $this->originalPrice($product));
+    }
+
+    private function discountPercentage(Product $product): ?float
+    {
+        return $this->pickMaxDiscount($product);
+    }
+
+    private function currency(): string
+    {
+        return Product::CURRENCY;
+    }
+
+
+    private function pickMaxDiscount(Product $product): ?float
+    {
+        return $this->discounts->whereIn('pointer', [$product->sku, $product->category])->max('percentage');
+    }
+
+    public function productPricing(Product $product): array
+    {
+        return [
+            'original' => $this->originalPrice($product),
+            'final' => $this->finalPrice($product),
+            'discount_percentage' => $this->discountPercentage($product) ? $this->discountPercentage($product) . '%' : null,
+            'currency' => $this->currency(),
+        ];
+    }
+
+    private function fetchDiscounts(): \Illuminate\Support\Collection
+    {
+        return Discount::query()->select('pointer', 'percentage')->get();
+    }
+
+
+}
