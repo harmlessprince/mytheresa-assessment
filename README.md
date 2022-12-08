@@ -72,13 +72,13 @@ This instruction will get the project working on your local machine for developm
     Step 10: run "docker-compose exec mytheresa php artisan migrate:fresh --seed" to run migrations
     ```
     If all goes well 
-  - Visit http://localhost:6060/ on your browser to view laravel home
+  - Visit http://localhost:5454/ on your browser to view laravel home
   - Visit http://localhost:8200/ on your browser to view database using phpmyadmin
   
 
   ### Testing
   ```
-  $ docker-compose exec app php artisan test
+  $ docker-compose exec mytheresa php artisan test
   ```
   If correctly setup, all tests should pass
   
