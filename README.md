@@ -34,7 +34,7 @@ This is a mini rest api that provides endpoints to fetch a list of seeded produc
 
 Method | Route | Description | Query Params
 --- | --- | ---|---
-`GET` | `/api/v1/books` | View all products available |  priceLessThan, category, per_page |
+`GET` | `/api/products` | View all products available |  priceLessThan, category, per_page |
 
 For examples of payloads, response and available query. Visit [The Product API Postman Collection](https://documenter.getpostman.com/view/11352884/2s8YzRz3Cc)
 
@@ -51,11 +51,11 @@ This instruction will get the project working on your local machine for developm
     $ git clone git@github.com:harmlessprince/mytheresa-assessment.git
     $ cd mytheresa-assessment
     $ cp .env.example .env
-    $ docker-compose build app
+    $ docker-compose build mytheresa
     $ docker-compose up
-    $ docker-compose exec app composer install
-    $ docker-compose exec app php artisan key:generate
-    $ docker-compose exec app php artisan migrate --seed
+    $ docker-compose exec mytheresa composer install
+    $ docker-compose exec mytheresa php artisan key:generate
+    $ docker-compose exec mytheresa php artisan migrate:fresh --seed
     ```
     
     If you are on a windows machine
@@ -65,11 +65,11 @@ This instruction will get the project working on your local machine for developm
     Step 3: Create a .env file at the root of your application
     Setp 4: Copy the content of the .env.example file into the .env file
     Step 5: Open your windows terminal and cd into the the directory of the cloned app
-    Step 6: run "docker-compose build app" to build application docker dependencies
+    Step 6: run "docker-compose build mytheresa" to build application docker dependencies
     Step 7: run "docker-compose up" to start app docker container
-    Step 8: run "docker-compose exec app composer install" to install docker depencencies
-    Step 9: run "docker-compose exec app php artisan key:generate" to generate app key
-    Step 10: run "docker-compose exec app php artisan migrate" to run migrations
+    Step 8: run "docker-compose exec mytheresa composer install" to install docker depencencies
+    Step 9: run "docker-compose exec mytheresa php artisan key:generate" to generate app key
+    Step 10: run "docker-compose exec mytheresa php artisan migrate:fresh --seed" to run migrations
     ```
     If all goes well 
   - Visit http://localhost:6060/ on your browser to view laravel home
