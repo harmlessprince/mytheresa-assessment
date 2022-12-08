@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('sku', 50);
             $table->string('category', 100);
-            $table->integer('price');
+            $table->float('price');
             $table->timestamps();
         });
     }

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $sku
  * @property string $category
- * @property int $price
+ * @property int|float $price
  * @property-read  int $originalPrice
  * @property-read  int $finalPrice
  * @property-read $discountPercentage

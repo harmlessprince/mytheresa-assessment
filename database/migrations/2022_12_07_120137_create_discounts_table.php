@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
             $table->string('pointer');
             $table->float('percentage');
             $table->timestamps();

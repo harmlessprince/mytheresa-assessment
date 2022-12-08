@@ -4,10 +4,13 @@ namespace App\Library;
 
 use App\Models\Discount;
 use App\Models\Product;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+
 class ProductDiscountLibrary
 {
-    private \Illuminate\Support\Collection $discounts;
+    private Collection $discounts;
+
     public function __construct()
     {
         $this->discounts = $this->fetchDiscounts();
@@ -21,7 +24,7 @@ class ProductDiscountLibrary
     private function finalPrice(Product $product): float|int
     {
         $discountPercentage = $this->discountPercentage($product);
-        if ($discountPercentage < 0) return  $this->originalPrice($product);
+        if ($discountPercentage < 0) return $this->originalPrice($product);
         return $this->originalPrice($product) - (($this->discountPercentage($product) / 100) * $this->originalPrice($product));
     }
 
@@ -51,9 +54,18 @@ class ProductDiscountLibrary
         ];
     }
 
-    private function fetchDiscounts(): \Illuminate\Support\Collection
+    private function fetchDiscounts(): Collection
     {
-        return Discount::query()->select('pointer', 'percentage')->get();
+        return collect([
+            [
+                'pointer' => 'boots',
+                'percentage' => 30,
+            ],
+            [
+                'pointer' => '000003',
+                'percentage' => 15,
+            ]
+        ]);
     }
 
 
