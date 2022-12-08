@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ProductResource;
 use App\Library\ProductDiscountLibrary;
-use App\Models\Discount;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class GetProductsController extends Controller
 {
-    public function __invoke(Request $request, ProductDiscountLibrary $productDiscountLibrary)
+    public function __invoke(Request $request, ProductDiscountLibrary $productDiscountLibrary): \Illuminate\Contracts\Pagination\Paginator
     {
-        $category = $request->category;
-        $priceLessThan = $request->priceLessThan;
+
+
+        $category =  $request->query->get('category');
+        $priceLessThan =  $request->query->get('priceLessThan');
         $perPage = $request->per_page ?? 5;
 
         $productQuery = Product::query();
@@ -25,7 +24,7 @@ class GetProductsController extends Controller
             /** @var  Product $product */
             $product->price = $productDiscountLibrary->productPricing($product);
         }
-        return ['data' => $products];
+        return $products;
     }
 
 }
