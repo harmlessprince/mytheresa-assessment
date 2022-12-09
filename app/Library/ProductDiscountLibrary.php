@@ -14,7 +14,7 @@ class ProductDiscountLibrary
         $this->discounts = $this->fetchDiscounts();
     }
 
-    private function originalPrice(Product $product): float|int
+    private function originalPrice(Product $product): int
     {
         return $product->price;
     }
