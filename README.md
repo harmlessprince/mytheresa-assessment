@@ -10,8 +10,9 @@ This is a mini rest api that provides endpoints to fetch a list of seeded produc
 3. <a href="#application-features">Application Features</a>
 4. <a href="#api-endpoints">API Endpoints</a>
 5. <a href="#setup">Setup</a>
-6. <a href="#author">Author</a>
-7. <a href="#license">License</a>
+6. <a href="#explanation">Explanation Of Decision Taken</a>
+7. <a href="#author">Author</a>
+8. <a href="#license">License</a>
 
 ## Technology Stack
   - [PHP](https://www.php.net)
@@ -97,7 +98,25 @@ This instruction will get the project working on your local machine for DEVELOPM
   #### Stop Application
   
   ```$ docker-compose down```
-  
+## Explanation
+    1. Invokable Controller: Since our controller only performs a single action, It makes sense to use an invokable 
+       class, which also helps us maintain the Single Responsibility Principle in SOLID. 
+       Also, note the naming convention used.
+    2. Product Discount Libary is a mini class that calculates discounts according to the product supplied.
+        a. The Constructor: 
+           In the product discount library constructor, we initiated the "discounts" variable to 
+           hold available discounts; this is done to have a single instance of the discount value while calculating 
+           the "discount" of the product supplied. If for any reason, these values are moved to the database level, 
+           the discounts table will only be queried once to get the available discounts, which in turn reduces the 
+           number of the database query to just 2(getting products and discounts).
+           
+        b. pickMaxDiscount Method: 
+           According to the requirement, The maximum discount should always be applied 
+           when more than one discount is available. By filtering the discounts using SKU and category we get an array 
+           of discount which the laravel collection max helper is used to pick the maximum discount percentage value if 
+           discounts returned is more than one otherwise it returns null.
+    3. A constant called CURRENCY is created on the product model since it is stated the currency will always be in euros(EUR) 
+        
 ## Author
  Name: Adewuyi Taofeeq <br>
  Email: realolamilekan@gmail.com <br>
