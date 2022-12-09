@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a mini rest api that provides endpoints to fetch a list of seeded products, filter by category and price. Also applies discount were applicable
+This is a mini rest api that provides a single endpoint to fetch a list of seeded products, filter by category and price. Also applies discount were applicable
 
 ## Table of Contents
 1. <a href="#how-it-works">How it works</a>
@@ -93,11 +93,15 @@ This instruction will get the project working on your local machine for DEVELOPM
   
   #### Start Application
   
-  ```$ docker-compose up```
+  ```
+  $ docker-compose up
+  ```
   
   #### Stop Application
   
-  ```$ docker-compose down```
+  ```
+  $ docker-compose down
+  ```
 ## Explanation
     1. Invokable Controller: Since our controller only performs a single action, It makes sense to use an invokable 
        class, which also helps us maintain the Single Responsibility Principle in SOLID. 
